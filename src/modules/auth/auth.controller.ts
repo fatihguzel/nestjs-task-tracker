@@ -71,6 +71,9 @@ export class AuthController {
     description: 'Kullanıcı profili getirildi',
   })
   getProfile(@Req() req) {
-    return req.user;
+    return {
+      success: true,
+      data: req.user,
+    };
   }
 }

@@ -22,6 +22,10 @@ export class User {
   @Column()
   password: string;
 
+  @ApiProperty({ description: 'Kullanıcın Rolü' })
+  @Column({ default: 'user' })
+  role: string;
+
   @OneToMany(() => Todo, (todo) => todo.user)
   @JoinColumn()
   todos: Todo[];

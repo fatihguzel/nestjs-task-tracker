@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
+import { AuthRole } from '../enums/auth-role.enum';
 
 export class RegisterDto {
   @ApiProperty({
@@ -22,5 +23,12 @@ export class RegisterDto {
   })
   @IsString()
   passwordConfirmation: string;
+
+  @ApiProperty({
+    description: 'Kullanıcı rolü',
+    example: 'user',
+    enum: AuthRole,
+  })
+  @IsString()
+  role: string;
 }
-// Compare this snippet from src/modules/todo/todo.service.ts:

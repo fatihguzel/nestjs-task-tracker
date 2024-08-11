@@ -6,7 +6,13 @@ import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { CustomLoggerService } from './common/logger/custom-logger.service';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: {
+      origin: '*', // Tüm domainlere izin vermek için '*' kullanılır. Bunu güvenlik açısından sınırlandırabilirsiniz.
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+      credentials: true,
+    },
+  });
 
   // Swagger yapılandırması
   const config = new DocumentBuilder()
