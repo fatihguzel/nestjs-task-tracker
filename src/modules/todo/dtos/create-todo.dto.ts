@@ -1,19 +1,56 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsBoolean, IsOptional, Length } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsArray,
+  ArrayNotEmpty,
+  IsDateString,
+  IsBoolean,
+  IsEnum,
+} from 'class-validator';
+import { TodoStatus } from '../enums/todo-status.enum';
 
 export class CreateTodoDto {
-  @ApiProperty({
-    description: 'Görevin başlığı',
-    example: 'Buy groceries',
-  })
+  @ApiProperty()
   @IsString()
   title: string;
 
-  @ApiProperty({
-    description: 'Görevin tamamlanıp tamamlanmadığı',
-    example: false,
-  })
-  @IsOptional()
+  @ApiProperty()
+  @IsString()
+  description: string;
+
+  @ApiProperty()
+  @IsString()
+  priority: string;
+
+  @ApiProperty()
+  @IsDateString()
+  startDate: Date;
+
+  @ApiProperty()
+  @IsDateString()
+  endDate: Date;
+
+  @ApiProperty({ enum: TodoStatus })
+  @IsString()
+  status: string;
+
+  @ApiProperty({ type: [String] })
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsString({ each: true })
+  users: string[];
+
+  @ApiProperty({ default: false })
   @IsBoolean()
+  @IsOptional()
   completed?: boolean;
+
+  @ApiProperty()
+  @IsDateString()
+  createdAt: Date;
+
+  @ApiProperty()
+  @IsDateString()
+  updatedAt: Date;
 }

@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   JoinColumn,
+  ManyToMany,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Todo } from 'src/modules/todo/entity/todo.entity';
@@ -26,7 +27,7 @@ export class User {
   @Column({ default: 'user' })
   role: string;
 
-  @OneToMany(() => Todo, (todo) => todo.user)
+  @ManyToMany(() => Todo, (todo) => todo.users)
   @JoinColumn()
   todos: Todo[];
 }
